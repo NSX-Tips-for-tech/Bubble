@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Website</title>
+    <title>Bubble</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
     <style>
         body {
@@ -43,7 +43,7 @@
             border-bottom: 1px solid #ccc;
             border-radius: 5px;
             transition: background 0.3s, transform 0.2s ease, box-shadow 0.3s;
-            cursor: pointer;
+            cursor: default; /* Changed cursor to default, so it's not clickable */
         }
         #word-list div:hover {
             background: #ddd;
@@ -65,15 +65,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             max-width: 400px;
             margin: auto;
-            opacity: 0;
-            transform: scale(0.9);
-            animation: fadeIn 0.5s forwards;
-        }
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
         }
 
         #error-message {
@@ -98,7 +89,48 @@
             background-color: #e0e0e0;
             border-radius: 5px;
             display: none;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Fade out animation for disappearing definition */
+        .fade-out {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        /* Dark mode clicked text */
+        .dark-mode .dark-mode-clicked {
+            background-color: #444; /* Darker gray when clicked in dark mode */
+            color: white;
+        }
+
+        /* Bounce animation for password section */
+        @keyframes bounce {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            70% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #auth-section {
+            animation: bounce 0.8s ease;
+        }
+
+        /* BounceInOut animation for the word list */
+        @keyframes bounceInOut {
+            0% { transform: translateY(30px); opacity: 0; }
+            50% { transform: translateY(-10px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .show-content {
+            animation: bounceInOut 0.8s ease;
+        }
+
+        /* Dark mode word hover effect */
+        .dark-mode #word-list div:hover {
+            background: #333; /* Darker grey background in dark mode */
         }
 
     </style>
@@ -115,22 +147,22 @@
         <span id="toggle-theme">
             <i class="fas fa-moon"></i> <!-- Moon icon -->
         </span>
-        <h1>Welcome to the Website</h1>
+        <h1>Welcome to the language list of Bubble</h1>
         <input type="text" id="search" onkeyup="searchWords()" placeholder="Search words...">
         <div id="word-list">
-            <div onclick="showDefinition('ki', 'Hi')"><strong>ki:</strong> Hi</div>
-            <div onclick="showDefinition('Shu', 'You')"><strong>Shu:</strong> You</div>
-            <div onclick="showDefinition('karata', 'How are you doing')"><strong>karata:</strong> How are you doing</div>
-            <div onclick="showDefinition('Si', 'Good')"><strong>Si:</strong> Good</div>
-            <div onclick="showDefinition('Noki', 'Face')"><strong>Noki:</strong> Face</div>
-            <div onclick="showDefinition('Shi', 'B*tch')"><strong>Shi:</strong> B*tch</div>
-            <div onclick="showDefinition('koro', 'Sh*t')"><strong>koro:</strong> Sh*t</div>
-            <div onclick="showDefinition('o', 'A')"><strong>o:</strong> A </div>
-            <div onclick="showDefinition('uoj', 'F*ck')"><strong>uoj:</strong> F*ck</div>
-            <div onclick="showDefinition('Ren', 'Create')"><strong>Ren:</strong> Create</div>
-            <div onclick="showDefinition('enzu', 'ass')"><strong>enzu:</strong> ass</div>
-            <div onclick="showDefinition('koi', 'Bye')"><strong>koi:</strong> Bye</div>
-            <div onclick="showDefinition('lok', 'Nah')"><strong>lok:</strong> Nah</div>
+            <div><strong>ki:</strong> Hi</div>
+            <div><strong>Shu:</strong> You</div>
+            <div><strong>karata:</strong> How are you doing</div>
+            <div><strong>Si:</strong> Good</div>
+            <div><strong>Noki:</strong> Face</div>
+            <div><strong>Shi:</strong> B*tch</div>
+            <div><strong>koro:</strong> Sh*t</div>
+            <div><strong>o:</strong> A </div>
+            <div><strong>uoj:</strong> F*ck</div>
+            <div><strong>Ren:</strong> Create</div>
+            <div><strong>enzu:</strong> ass</div>
+            <div><strong>koi:</strong> Bye</div>
+            <div><strong>lok:</strong> Nah</div>
         </div>
         <div id="definition"></div>
     </div>
@@ -141,7 +173,9 @@
             const input = document.getElementById("password-input").value;
             if (input === correctPassword) {
                 document.getElementById("auth-section").style.display = "none";
-                document.getElementById("content").classList.remove("hidden");
+                const content = document.getElementById("content");
+                content.classList.remove("hidden");
+                content.classList.add("show-content"); // Add bounceInOut animation
             } else {
                 document.getElementById("error-message").innerText = "Incorrect password. Try again.";
             }
@@ -165,13 +199,6 @@
             toggleTheme.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>'; // Switch icons
             toggleTheme.classList.toggle("dark");
         });
-
-        function showDefinition(word, definition) {
-            const definitionDiv = document.getElementById("definition");
-            definitionDiv.innerHTML = `<strong>${word}:</strong> ${definition}`;
-            definitionDiv.style.display = 'block';
-            definitionDiv.style.opacity = '1';
-        }
     </script>
 </body>
 </html>
