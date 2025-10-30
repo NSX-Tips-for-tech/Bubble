@@ -1,0 +1,19 @@
+
+
+    { word: "hishquendelag", definition: "Shut the fuck up Faggot/ Stfu fag"}
+    { word: "ki", definition: "Hi" },
+    { word: "Shu", definition: "You" },
+    { word: "karata", definition: "How are you doing" },
+    { word: "Si", definition: "Good" },
+    { word: "Noki", definition: "Face" },
+    { word: "Shi", definition: "B*tch" },
+    { word: "koro", definition: "Sh*t" },
+    { word: "o", definition: "A" },
+    { word: "uoj", definition: "F*ck" },
+    { word: "Ren", definition: "Create" },
+    { word: "enzu", definition: "ass" },
+    { word: "koi", definition: "Bye" },
+    { word: "lok", definition: "Nah" },
+    { word: "onimi", definition: "Anime" },
+    { word: "koa", definition: "What" },
+    { word: "nokoro", definition: "dipsh*t" },
